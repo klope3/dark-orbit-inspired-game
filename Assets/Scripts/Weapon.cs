@@ -1,0 +1,15 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class Weapon : MonoBehaviour
+{
+    public void SetTriggerOn()
+    {
+    }
+
+    public void SetTriggerOff()
+    {
+    }
+}
