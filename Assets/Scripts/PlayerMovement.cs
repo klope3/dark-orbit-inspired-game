@@ -15,6 +15,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform referenceTransform;
     private Rigidbody rb;
 
+    public Vector3 MoveDirection { get; private set; }
+    public bool IsThrusting { get; private set; }
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -33,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 moveDirection = referenceTransform.right * input.MovementAxis.x + referenceTransform.forward * input.MovementAxis.y;
         moveDirection.Normalize();
+        MoveDirection = moveDirection;
         if (useSpeedLimit)
         {
             Vector3 oppositeDirection = -1 * rb.velocity.normalized;
@@ -41,6 +45,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         rb.AddForce(moveDirection * accelerationForce * baseForce * Time.deltaTime);
+
+        IsThrusting = moveDirection.magnitude > 0;
     }
 
     private void AutoBrake(Vector2 input)
