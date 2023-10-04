@@ -8,6 +8,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Transform weaponPivot;
     [SerializeField] private Transform weaponTarget;
     [SerializeField] private Transform muzzleLocation;
+    [SerializeField] private GameObjectPool projectilePool;
     [SerializeField] private float maxDownwardAngle;
     [SerializeField] private bool showAimLine;
 
@@ -34,6 +35,12 @@ public class Weapon : MonoBehaviour
 
     public void SetTriggerOn()
     {
+        Debug.Log("Trigger on");
+        GameObject pooledProj = projectilePool.GetPooledObject();
+        pooledProj.SetActive(true);
+        pooledProj.transform.position = muzzleLocation.position;
+        Projectile proj = pooledProj.GetComponent<Projectile>();
+        proj.movementVector = muzzleLocation.forward;
     }
 
     public void SetTriggerOff()
