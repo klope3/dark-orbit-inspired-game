@@ -53,9 +53,4 @@ public class Spawner : MonoBehaviour
         spawnable.OnDie -= Spawnable_OnDie;
         spawnedCount--;
     }
-
-    public void DecrementSpawnCount()
-    {
-        spawnedCount--;
-    }
 }
