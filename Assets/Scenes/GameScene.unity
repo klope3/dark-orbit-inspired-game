@@ -413,7 +413,7 @@ GameObject:
   - component: {fileID: 391667912}
   m_Layer: 0
   m_Name: ProjectilePool
-  m_TagString: Untagged
+  m_TagString: ProjectilePool
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2559,6 +2559,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   muzzleLocation: {fileID: 1631987654}
   projectilePool: {fileID: 391667912}
+  findPool: 0
+  findPoolTag: 
   showAimLine: 1
 --- !u!114 &2120050570
 MonoBehaviour:

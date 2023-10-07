@@ -187,7 +187,7 @@ MonoBehaviour:
   maxHealth: 3
   invincible: 0
   destroyOnDeath: 0
-  showLogs: 1
+  showLogs: 0
   OnDamage:
     m_PersistentCalls:
       m_Calls: []
@@ -214,7 +214,7 @@ MonoBehaviour:
     m_Bits: 55
   weaponPivot: {fileID: 4449435630228277836}
   weapon: {fileID: 7790589459019831872}
-  canAttack: 0
+  canAttack: 1
 --- !u!114 &7790589459019831872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,6 +229,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   muzzleLocation: {fileID: 7884768428297044397}
   projectilePool: {fileID: 0}
+  findPool: 1
+  findPoolTag: ProjectilePool
   showAimLine: 1
 --- !u!114 &8550935793397262714
 MonoBehaviour:
@@ -242,8 +244,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a2e8f55826226743aa56eaca7f095c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invokeOnDestroy: 0
-  invokeOnDisable: 0
   originSpawner: {fileID: 0}
 --- !u!1 &6506878215821663692
 GameObject:
