@@ -38,7 +38,6 @@ public class Projectile : MonoBehaviour
             }
             OnImpact?.Invoke();
             gameObject.SetActive(false);
-            Debug.Log("Hit " + rayHit.collider.gameObject.name);
         }
         else
         {

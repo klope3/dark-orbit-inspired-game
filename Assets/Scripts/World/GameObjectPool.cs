@@ -28,7 +28,7 @@ public class GameObjectPool : MonoBehaviour
             } 
         }
 
-        return CreatePooledObject();//
+        return CreatePooledObject();
     }
 
     private GameObject CreatePooledObject()

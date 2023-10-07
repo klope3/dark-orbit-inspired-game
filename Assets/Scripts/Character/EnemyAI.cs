@@ -29,20 +29,11 @@ public class EnemyAI : MonoBehaviour
         RaycastHit rayHit;
         Physics.Raycast(ray, out rayHit, float.MaxValue, sightBlockingLayers);
         bool canSeePlayer = rayHit.collider.transform == playerTransform;
-        if (canSeePlayer)
-        {
-            //Debug.Log("Can see");
-        }
-        else
-        {
-            //Debug.Log($"CAN'T see, hit {rayHit.collider.gameObject.name}");
-        }
 
         weaponPivot.LookAt(playerTransform);
 
         if (canAttack && tempAttackTimer > 2 && canSeePlayer)
         {
-            Debug.Log("Attack");
             weapon.SetTriggerOn();
             weapon.SetTriggerOff();
             tempAttackTimer = 0;
