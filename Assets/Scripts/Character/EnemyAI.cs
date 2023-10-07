@@ -7,6 +7,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private LayerMask sightBlockingLayers;
     [SerializeField] private Transform weaponPivot;
     [SerializeField] private Weapon weapon;
+    public bool canAttack = true;
     private Transform playerTransform;
     private float tempAttackTimer;
 
@@ -39,7 +40,7 @@ public class EnemyAI : MonoBehaviour
 
         weaponPivot.LookAt(playerTransform);
 
-        if (tempAttackTimer > 2 && canSeePlayer)
+        if (canAttack && tempAttackTimer > 2 && canSeePlayer)
         {
             Debug.Log("Attack");
             weapon.SetTriggerOn();
