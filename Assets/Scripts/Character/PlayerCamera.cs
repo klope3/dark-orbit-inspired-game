@@ -11,6 +11,16 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private Transform weaponPivot;
     [SerializeField] private Transform weaponTarget;
     [SerializeField] private float maxDownwardAngle;
+    [SerializeField] private bool lockCursor;
+
+    private void Awake()
+    {
+        if (lockCursor)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+    }
 
     private void LateUpdate()
     {
