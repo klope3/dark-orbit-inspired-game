@@ -5,15 +5,15 @@ using UnityEngine;
 public class PlayerGeometryRotation : MonoBehaviour
 {
     [SerializeField] private Transform playerGeometry;
-    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private ThrusterMovement playerMovement;
     [SerializeField] private float lerpStrength;
 
     private void Update()
     {
-        if (!playerMovement.IsThrusting) return;
+        if (playerMovement.moveDirection.magnitude == 0) return;
 
-        playerGeometry.transform.forward = Vector3.Lerp(playerGeometry.transform.forward, playerMovement.MoveDirection, Time.deltaTime * lerpStrength);
+        playerGeometry.transform.forward = Vector3.Lerp(playerGeometry.transform.forward, playerMovement.moveDirection, Time.deltaTime * lerpStrength);
 
-        Debug.DrawLine(playerGeometry.position, playerGeometry.position + playerMovement.MoveDirection * 10);
+        //Debug.DrawLine(playerGeometry.position, playerGeometry.position + playerMovement.moveDirection * 10);
     }
 }

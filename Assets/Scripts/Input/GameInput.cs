@@ -9,6 +9,7 @@ public class GameInput : MonoBehaviour
     private bool lastFrameAttack;
 
     public Vector2 MovementAxis { get; private set; }
+    public int MovementVertical { get; private set; }
     public Vector2 LookAxis { get; private set; }
 
     public UnityEvent OnAttackStart;
@@ -37,7 +38,11 @@ public class GameInput : MonoBehaviour
     {
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
+        int up = Input.GetKey(KeyCode.Space) ? 1 : 0;
+        int down = Input.GetKey(KeyCode.LeftShift) ? -1 : 0;
+
         MovementAxis = new Vector2(x, y);
+        MovementVertical = up + down;
     }
 
     private void CheckLook()
