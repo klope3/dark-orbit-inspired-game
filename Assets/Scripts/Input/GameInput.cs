@@ -14,12 +14,14 @@ public class GameInput : MonoBehaviour
 
     public UnityEvent OnAttackStart;
     public UnityEvent OnAttackStop;
+    public UnityEvent OnPausePressed;
 
     private void Update()
     {
         CheckAttack();
         CheckMovement();
         CheckLook();
+        CheckPause();
     }
 
     private void CheckAttack()
@@ -48,5 +50,13 @@ public class GameInput : MonoBehaviour
     private void CheckLook()
     {
         LookAxis = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
+    }
+
+    private void CheckPause()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            OnPausePressed?.Invoke();
+        }
     }
 }

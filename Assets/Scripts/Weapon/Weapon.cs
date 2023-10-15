@@ -43,11 +43,13 @@ public class Weapon : MonoBehaviour
 
     public void SetTriggerOn()
     {
+        if (!enabled) return;
         Fire();
     }
 
     public void SetTriggerOff()
     {
+        if (!enabled) return;
     }
 
     public void Fire()

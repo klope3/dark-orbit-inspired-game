@@ -11,21 +11,11 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private Transform weaponPivot;
     [SerializeField] private Transform weaponTarget;
     [SerializeField] private float maxDownwardAngle;
-    [SerializeField] private bool lockCursor;
-
-    private void Awake()
-    {
-        if (lockCursor)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
-    }
 
     private void LateUpdate()
     {
         Look();
-        Aim();
+        AimWeapon();
     }
 
     private void Look()
@@ -49,7 +39,7 @@ public class PlayerCamera : MonoBehaviour
         cameraFollow.localEulerAngles = angles;
     }
 
-    private void Aim()
+    private void AimWeapon()
     {
         weaponPivot.LookAt(weaponTarget, weaponTarget.up);
 
