@@ -58,6 +58,6 @@ public class Weapon : MonoBehaviour
         pooledProj.SetActive(true);
         pooledProj.transform.position = muzzleLocation.position;
         Projectile proj = pooledProj.GetComponent<Projectile>();
-        proj.movementVector = muzzleLocation.forward;
+        proj.Launch(muzzleLocation.forward);
     }
 }
