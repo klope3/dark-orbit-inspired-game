@@ -9,7 +9,6 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private Weapon weapon;
     public bool canAttack = true;
     private Transform playerTransform;
-    private float tempAttackTimer;
 
     private void Awake()
     {
@@ -22,7 +21,6 @@ public class EnemyAI : MonoBehaviour
         {
             return;
         }
-        tempAttackTimer += Time.deltaTime;
 
         Vector3 aimDirection = playerTransform.position - weaponPivot.position;
         Ray ray = new Ray(weaponPivot.position, aimDirection);
@@ -32,11 +30,13 @@ public class EnemyAI : MonoBehaviour
 
         weaponPivot.LookAt(playerTransform);
 
-        if (canAttack && tempAttackTimer > 2 && canSeePlayer)
+        if (canAttack && canSeePlayer)
         {
             weapon.SetTriggerOn();
+        }
+        else
+        {
             weapon.SetTriggerOff();
-            tempAttackTimer = 0;
         }
     }
 }

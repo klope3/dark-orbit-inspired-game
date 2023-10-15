@@ -8,17 +8,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject enemyBoss;
     [SerializeField] private Transform tempBossSpawnPoint;
     [SerializeField] private bool allowLockCursor = true;
+    [SerializeField] private bool spawnBoss;
     public UnityEvent OnBossKilled;
 
     private void Awake()
     {
-        GameObject boss = Instantiate(enemyBoss);
-        boss.transform.position = tempBossSpawnPoint.position;
-        boss.GetComponent<HealthHandler>().OnDied += GameManager_OnDied;
+        if (spawnBoss)
+        {
+            GameObject boss = Instantiate(enemyBoss);
+            boss.transform.position = tempBossSpawnPoint.position;
+            boss.GetComponent<HealthHandler>().OnDied += GameManager_OnBossDied;
+        }
         SetCursorLock(true);
     }
 
-    private void GameManager_OnDied()
+    private void GameManager_OnBossDied()
     {
         OnBossKilled?.Invoke();
     }

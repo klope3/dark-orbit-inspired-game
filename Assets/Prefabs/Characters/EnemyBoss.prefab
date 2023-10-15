@@ -228,11 +228,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: decd9920ac3b0614a915b171e176c3c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shotsPerSecond: 1
+  fireType: 1
   muzzleLocation: {fileID: 7884768428297044397}
   projectilePool: {fileID: 0}
   findPool: 1
   findPoolTag: ProjectilePool
   showAimLine: 1
+  log: 1
 --- !u!114 &8550935793397262714
 MonoBehaviour:
   m_ObjectHideFlags: 0

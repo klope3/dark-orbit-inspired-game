@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class Weapon : MonoBehaviour
 {
+    [SerializeField, Min(0.001f)] private float shotsPerSecond;
+    [SerializeField] private FireType fireType;
     [SerializeField] private Transform muzzleLocation;
     [SerializeField] private GameObjectPool projectilePool;
     [SerializeField, Tooltip("Whether to try and find a pool on Awake. " +
@@ -13,6 +15,15 @@ public class Weapon : MonoBehaviour
     [SerializeField, Tooltip("The tag to use for finding a pool on Awake. " +
         "Does nothing if findPool is false.")] private string findPoolTag;
     [SerializeField] private bool showAimLine;
+    private float triggerTimer;
+    private bool wasTriggerPulled; //last frame
+    private bool isTriggerPulled; //this frame
+
+    public enum FireType
+    {
+        SemiAutomatic,
+        Automatic
+    }
 
     private void Awake()
     {
@@ -32,6 +43,25 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        bool triggerTimerReady = triggerTimer >= 1 / shotsPerSecond;
+        if (!triggerTimerReady)
+        {
+            triggerTimer += Time.deltaTime;
+        }
+
+        bool canAutoFire = isTriggerPulled && triggerTimerReady;
+        bool canSemiAutoFire = !wasTriggerPulled && isTriggerPulled && triggerTimerReady;
+
+        if ((canAutoFire && fireType == FireType.Automatic) || (canSemiAutoFire && fireType == FireType.SemiAutomatic))
+        {
+            Fire();
+        }
+
+        wasTriggerPulled = isTriggerPulled;
+    }
+
     private void OnDrawGizmos()
     {
         if (showAimLine && muzzleLocation != null)
@@ -43,13 +73,12 @@ public class Weapon : MonoBehaviour
 
     public void SetTriggerOn()
     {
-        if (!enabled) return;
-        Fire();
+        isTriggerPulled = true;
     }
 
     public void SetTriggerOff()
     {
-        if (!enabled) return;
+        isTriggerPulled = false;
     }
 
     public void Fire()
@@ -59,5 +88,6 @@ public class Weapon : MonoBehaviour
         pooledProj.transform.position = muzzleLocation.position;
         Projectile proj = pooledProj.GetComponent<Projectile>();
         proj.Launch(muzzleLocation.forward);
+        triggerTimer = 0;
     }
 }

@@ -1346,6 +1346,7 @@ MonoBehaviour:
     type: 3}
   tempBossSpawnPoint: {fileID: 646179917}
   allowLockCursor: 1
+  spawnBoss: 1
   OnBossKilled:
     m_PersistentCalls:
       m_Calls:
@@ -3814,7 +3815,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2058860470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3986,11 +3987,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: decd9920ac3b0614a915b171e176c3c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shotsPerSecond: 10
+  fireType: 1
   muzzleLocation: {fileID: 1631987654}
   projectilePool: {fileID: 391667912}
   findPool: 0
   findPoolTag: 
   showAimLine: 1
+  log: 0
 --- !u!114 &2120050570
 MonoBehaviour:
   m_ObjectHideFlags: 0
