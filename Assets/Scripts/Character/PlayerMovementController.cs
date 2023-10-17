@@ -10,7 +10,9 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Update()
     {
-        playerThruster.moveDirection = referenceTransform.right * input.MovementAxis.x + referenceTransform.forward * input.MovementAxis.y;
+        Vector3 moveDirection = referenceTransform.right * input.MovementAxis.x + referenceTransform.forward * input.MovementAxis.y;
+
+        playerThruster.moveDirectionHorz = new Vector2(moveDirection.x, moveDirection.z);
         playerThruster.verticalDirection = input.MovementVertical;
     }
 }

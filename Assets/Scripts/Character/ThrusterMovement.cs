@@ -15,7 +15,7 @@ public class ThrusterMovement : MonoBehaviour
     //[SerializeField] private Transform referenceTransform;
     private Rigidbody rb;
 
-    [HideInInspector] public Vector3 moveDirection;
+    [HideInInspector] public Vector2 moveDirectionHorz;
     [HideInInspector] public int verticalDirection;
     [SerializeField, Tooltip("The upward force required to maintain " +
         "a vertical velocity of 0. Depends on the project's gravity " +
@@ -44,7 +44,7 @@ public class ThrusterMovement : MonoBehaviour
 
     private void MoveHorizontal()
     {
-        Vector3 direction = moveDirection.normalized;
+        Vector3 direction = new Vector3(moveDirectionHorz.x, 0, moveDirectionHorz.y).normalized;
         //Vector3 moveDirection = referenceTransform.right * input.MovementAxis.x + referenceTransform.forward * input.MovementAxis.y;
         //moveDirection.Normalize();
         //MoveDirection = moveDirection;
@@ -74,9 +74,9 @@ public class ThrusterMovement : MonoBehaviour
         float brakeX = 0;
         float brakeZ = 0;
 
-        if (moveDirection.x == 0)
+        if (moveDirectionHorz.x == 0)
             brakeX = -1 * rb.velocity.normalized.x;
-        if (moveDirection.y == 0)
+        if (moveDirectionHorz.y == 0)
             brakeZ = -1 * rb.velocity.normalized.y;
 
         Vector2 brakeVec = Vector3.right * brakeX + Vector3.forward * brakeZ;

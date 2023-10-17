@@ -10,10 +10,9 @@ public class PlayerGeometryRotation : MonoBehaviour
 
     private void Update()
     {
-        if (playerMovement.moveDirection.magnitude == 0) return;
+        if (playerMovement.moveDirectionHorz.magnitude == 0) return;
 
-        playerGeometry.transform.forward = Vector3.Lerp(playerGeometry.transform.forward, playerMovement.moveDirection, Time.deltaTime * lerpStrength);
-
-        //Debug.DrawLine(playerGeometry.position, playerGeometry.position + playerMovement.moveDirection * 10);
+        Vector3 playerDirectionAdjusted = new Vector3(playerMovement.moveDirectionHorz.x, 0, playerMovement.moveDirectionHorz.y);
+        playerGeometry.transform.forward = Vector3.Lerp(playerGeometry.transform.forward, playerDirectionAdjusted, Time.deltaTime * lerpStrength);
     }
 }

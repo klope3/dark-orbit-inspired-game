@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 5759842888633019061}
   - component: {fileID: 7790589459019831872}
   - component: {fileID: 8550935793397262714}
+  - component: {fileID: 5904968125460673562}
   m_Layer: 3
   m_Name: EnemyBasic
   m_TagString: Untagged
@@ -166,7 +167,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -209,11 +210,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75fc57c848c2e3f4c9c9ac660a56c4e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pursuePlayerDistance: 5
   sightBlockingLayers:
     serializedVersion: 2
     m_Bits: 55
   weaponPivot: {fileID: 4449435630228277836}
   weapon: {fileID: 7790589459019831872}
+  thruster: {fileID: 5904968125460673562}
   canAttack: 1
 --- !u!114 &7790589459019831872
 MonoBehaviour:
@@ -247,6 +250,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   originSpawner: {fileID: 0}
+--- !u!114 &5904968125460673562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3032451087444342418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13a34abb077161d41a89ecc0a041b08f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseForce: 100
+  accelerationForce: 10
+  useSpeedLimit: 1
+  speedLimit: 10
+  useAutoBrake: 1
+  brakeForce: 3
+  stoppedTolerance: 0.01
+  moveDirectionHorz: {x: 0, y: 0}
+  verticalDirection: 0
+  neutralVertForce: 1225
+  ascendForce: 500
+  descendForce: 500
 --- !u!1 &6506878215821663692
 GameObject:
   m_ObjectHideFlags: 0

@@ -3815,7 +3815,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2058860470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3993,8 +3993,7 @@ MonoBehaviour:
   projectilePool: {fileID: 391667912}
   findPool: 0
   findPoolTag: 
-  showAimLine: 1
-  log: 0
+  showAimLine: 0
 --- !u!114 &2120050570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4014,7 +4013,7 @@ MonoBehaviour:
   useAutoBrake: 1
   brakeForce: 3
   stoppedTolerance: 0.01
-  moveDirection: {x: 0, y: 0, z: 0}
+  moveDirectionHorz: {x: 0, y: 0}
   verticalDirection: 0
   neutralVertForce: 1225
   ascendForce: 500
