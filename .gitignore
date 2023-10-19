@@ -73,3 +73,7 @@ crashlytics-build.properties
 
 #My Settings
 /[Pp]ackages/
+/[Aa]ssets/[Tt]errain[Ss]ample[Aa]ssets/
+/[Aa]ssets/[Tt]errain[Ss]ample[Aa]ssets.meta
+/[Aa]ssets/[Dd]igger/
+/[Aa]ssets/[Dd]igger.meta
