@@ -77,3 +77,8 @@ crashlytics-build.properties
 /[Aa]ssets/[Tt]errain[Ss]ample[Aa]ssets.meta
 /[Aa]ssets/[Dd]igger/
 /[Aa]ssets/[Dd]igger.meta
+*.vom_v*
+*.vox_v*
+*.asset_*
+*.ver
+current_version.asset

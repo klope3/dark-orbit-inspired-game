@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Spawner : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Spawner : MonoBehaviour
     [SerializeField, Min(0.001f)] private float spawnsPerSecond;
     [SerializeField, Min(0.001f)] private float minSpawnRadius;
     [SerializeField, Min(0.001f)] private float maxSpawnRadius;
+    [SerializeField] private bool use2DRadius;
     [SerializeField, Min(1)] private int maxSpawnedCount;
     private float spawnTimer;
     private int spawnedCount;
@@ -32,9 +34,15 @@ public class Spawner : MonoBehaviour
         }
 
         GameObject go = pool.GetPooledObject();
-        go.SetActive(true);
         Vector3 randPos = transform.position + Random.insideUnitSphere.normalized * Random.Range(minSpawnRadius, maxSpawnRadius);
+        if (use2DRadius) randPos.y = transform.position.y;
         go.transform.position = randPos;
+        NavMeshAgent agent = go.GetComponent<NavMeshAgent>();
+        if (agent != null)
+        {
+            agent.Warp(randPos);
+        }
+        go.SetActive(true);
         Spawnable spawnable = go.GetComponent<Spawnable>();
         if (spawnable == null)
         {

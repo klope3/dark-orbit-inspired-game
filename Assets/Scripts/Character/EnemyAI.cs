@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -8,7 +9,8 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private LayerMask sightBlockingLayers;
     [SerializeField] private Transform weaponPivot;
     [SerializeField] private Weapon weapon;
-    [SerializeField] private ThrusterMovement thruster;
+    [SerializeField] private NavMeshAgent agent;
+    //[SerializeField] private ThrusterMovement thruster;
     public bool canAttack = true;
     private Transform playerTransform;
     private const float behaviorChangeMinTime = 0.5f;
@@ -17,7 +19,7 @@ public class EnemyAI : MonoBehaviour
     private float behaviorChangeTimerTarget;
     private bool canSeePlayer;
     private Vector3 pursuePlayerOffset;
-    private bool hasReachedTarget;
+    //private bool hasReachedTarget;
 
     private void Awake()
     {
@@ -49,7 +51,7 @@ public class EnemyAI : MonoBehaviour
         }
 
         AimAndAttack();
-        Move();
+        //Move();
     }
 
     private void ResetBehaviorTimer()
@@ -62,27 +64,36 @@ public class EnemyAI : MonoBehaviour
     {
         if (!canSeePlayer) return;
 
-        pursuePlayerOffset = Random.insideUnitSphere.normalized * pursuePlayerDistance;
-        pursuePlayerOffset.y = Mathf.Abs(pursuePlayerOffset.y);
-        hasReachedTarget = false;
-    }
-
-    private void Move()
-    {
-        Vector3 vecToTarget = (playerTransform.position + pursuePlayerOffset) - transform.position;
-        if (vecToTarget.magnitude < 1 || hasReachedTarget)
+        //pursuePlayerOffset = Random.insideUnitSphere.normalized * pursuePlayerDistance;
+        pursuePlayerOffset = Random.insideUnitCircle.normalized * pursuePlayerDistance;
+        if (!agent.isOnNavMesh)
         {
-            hasReachedTarget = true;
-            thruster.moveDirectionHorz = Vector2.zero;
-            thruster.verticalDirection = 0;
-            return;
+            Debug.LogWarning("Did not set destination because the agent isn't on a navmesh");
         }
-
-        thruster.moveDirectionHorz = new Vector2(vecToTarget.x, vecToTarget.z);
-        thruster.verticalDirection = vecToTarget.y < 0 ? -1 : 1;
-
-        Debug.DrawLine(transform.position, playerTransform.position + pursuePlayerOffset);
+        else
+        {
+            agent.destination = playerTransform.position + pursuePlayerOffset;
+        }
+        //pursuePlayerOffset.y = Mathf.Abs(pursuePlayerOffset.y);
+        //hasReachedTarget = false;
     }
+
+    //private void Move()
+    //{
+    //    Vector3 vecToTarget = (playerTransform.position + pursuePlayerOffset) - transform.position;
+    //    if (vecToTarget.magnitude < 1 || hasReachedTarget)
+    //    {
+    //        hasReachedTarget = true;
+    //        thruster.moveDirectionHorz = Vector2.zero;
+    //        thruster.verticalDirection = 0;
+    //        return;
+    //    }
+    //
+    //    thruster.moveDirectionHorz = new Vector2(vecToTarget.x, vecToTarget.z);
+    //    thruster.verticalDirection = vecToTarget.y < 0 ? -1 : 1;
+    //
+    //    Debug.DrawLine(transform.position, playerTransform.position + pursuePlayerOffset);
+    //}
 
     private void AimAndAttack()
     {
