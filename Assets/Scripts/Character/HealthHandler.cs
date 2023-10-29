@@ -8,7 +8,8 @@ public class HealthHandler : MonoBehaviour
     [SerializeField] private int startingHealth;
     [SerializeField] private int maxHealth;
     [SerializeField] private bool invincible;
-    [SerializeField, Tooltip("If false, the GameObject will be set inactive instead.")] private bool destroyOnDeath = true;
+    [SerializeField] private bool destroyOnDeath = true;
+    [SerializeField] private bool inactiveOnDeath;
     [SerializeField] private bool showLogs;
     private int curHealth;
     public UnityEvent OnDamage;
@@ -31,11 +32,13 @@ public class HealthHandler : MonoBehaviour
 
     public void AddHealth(int amount)
     {
+        Debug.Log("Damage " + amount);
         if (amount == 0 || (amount < 0 && invincible))
             return;
 
         curHealth += amount;
         curHealth = Mathf.Clamp(curHealth, 0, maxHealth);
+        Debug.Log("Health now " + curHealth);
         if (showLogs)
             Debug.Log($"Added {amount} to {gameObject.name}'s health");
 
@@ -49,7 +52,7 @@ public class HealthHandler : MonoBehaviour
             OnDied?.Invoke();
             if (destroyOnDeath)
                 Destroy(gameObject);
-            else
+            else if (inactiveOnDeath)
                 gameObject.SetActive(false);
         }
     }
