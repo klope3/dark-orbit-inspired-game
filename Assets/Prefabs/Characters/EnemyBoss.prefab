@@ -51,6 +51,8 @@ GameObject:
   - component: {fileID: 7790589459019831872}
   - component: {fileID: 8550935793397262714}
   - component: {fileID: 2536544598398294111}
+  - component: {fileID: -7722536029710586419}
+  - component: {fileID: 4561545562457212605}
   m_Layer: 3
   m_Name: EnemyBoss
   m_TagString: Untagged
@@ -189,6 +191,7 @@ MonoBehaviour:
   maxHealth: 3
   invincible: 0
   destroyOnDeath: 0
+  inactiveOnDeath: 0
   showLogs: 0
   OnDamage:
     m_PersistentCalls:
@@ -211,14 +214,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75fc57c848c2e3f4c9c9ac660a56c4e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingState: 1
   pursuePlayerDistance: 5
+  wanderRadius: 100
   sightBlockingLayers:
     serializedVersion: 2
     m_Bits: 55
   weaponPivot: {fileID: 4449435630228277836}
   weapon: {fileID: 7790589459019831872}
-  thruster: {fileID: 2536544598398294111}
+  agent: {fileID: -7722536029710586419}
   canAttack: 1
+  wanderAnchor: {x: 0, y: 0, z: 0}
+  aiState: 0
 --- !u!114 &7790589459019831872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,7 +265,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3032451087444342418}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13a34abb077161d41a89ecc0a041b08f, type: 3}
   m_Name: 
@@ -275,6 +282,103 @@ MonoBehaviour:
   neutralVertForce: 1225
   ascendForce: 500
   descendForce: 500
+--- !u!195 &-7722536029710586419
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3032451087444342418}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 30
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: 0.5
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &4561545562457212605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3032451087444342418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67a5fc50cb592fe4f95457eb6d66e520, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Settings: {fileID: 0}
+  Prefabs:
+    RadarPrefab: {fileID: 114649513964931752, guid: 7df08e2a2fd0940469fa781e26554019,
+      type: 3}
+    CompassBarPrefab: {fileID: 114875581833013858, guid: d04e4256c86dfc4439da3d1b4407458e,
+      type: 3}
+    IndicatorPrefab: {fileID: 114724236924444632, guid: b97d8841013a7a643bb2c5c9fe8da06e,
+      type: 3}
+    MinimapPrefab: {fileID: 114416010850775958, guid: a8f2acb57900dfa4fa38df814b1b9a5c,
+      type: 3}
+  hideInRadar: 0
+  ignoreRadarRadius: 0
+  ignoreRadarScaling: 0
+  ignoreRadarFading: 0
+  rotateWithGameObject: 1
+  useRadarHeightSystem: 1
+  hideInCompassBar: 0
+  ignoreCompassBarRadius: 0
+  useCompassBarDistanceText: 1
+  compassBarDistanceTextFormat: '{0}m'
+  showIndicator: 1
+  showOffscreenIndicator: 1
+  ignoreIndicatorRadius: 1
+  ignoreIndicatorHideDistance: 0
+  ignoreIndicatorScaling: 0
+  ignoreIndicatorFading: 0
+  useIndicatorDistanceText: 1
+  showOffscreenIndicatorDistance: 0
+  indicatorOnscreenDistanceTextFormat: '{0}m'
+  indicatorOffscreenDistanceTextFormat: '{0}'
+  hideInMinimap: 0
+  ignoreMinimapRadius: 1
+  ignoreMinimapScaling: 1
+  ignoreMinimapFading: 1
+  rotateWithGameObjectMM: 1
+  useMinimapHeightSystem: 0
+  OnElementReady:
+    m_PersistentCalls:
+      m_Calls: []
+  OnElementUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  OnAppear:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDisappear:
+    m_PersistentCalls:
+      m_Calls: []
+  OnEnterRadius:
+    m_PersistentCalls:
+      m_Calls: []
+  OnLeaveRadius:
+    m_PersistentCalls:
+      m_Calls: []
+  IsActive: 1
+  Radar: {fileID: 0}
+  CompassBar: {fileID: 0}
+  Indicator: {fileID: 0}
+  Minimap: {fileID: 0}
+  IsInRadarRadius: 0
+  IsInCompassBarRadius: 0
+  IsInIndicatorRadius: 0
+  IsInMinimapRadius: 0
 --- !u!1 &5011114337485706625
 GameObject:
   m_ObjectHideFlags: 0

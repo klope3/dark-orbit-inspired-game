@@ -9,16 +9,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform tempBossSpawnPoint;
     [SerializeField] private bool allowLockCursor = true;
     [SerializeField] private bool spawnBoss;
+    [SerializeField] private Vector3 bossTempWanderAnchor;
     public UnityEvent OnBossKilled;
 
     private void Awake()
     {
-        if (spawnBoss)
-        {
-            GameObject boss = Instantiate(enemyBoss);
-            boss.transform.position = tempBossSpawnPoint.position;
-            boss.GetComponent<HealthHandler>().OnDied += GameManager_OnBossDied;
-        }
+        SpawnBoss();
         SetCursorLock(true);
     }
 
@@ -30,6 +26,19 @@ public class GameManager : MonoBehaviour
     public void SetTimeFrozen(bool b)
     {
         Time.timeScale = b ? 0 : 1;
+    }
+
+    private void SpawnBoss()
+    {
+        if (spawnBoss)
+        {
+            GameObject boss = Instantiate(enemyBoss);
+            boss.transform.position = tempBossSpawnPoint.position;
+            boss.GetComponent<HealthHandler>().OnDied += GameManager_OnBossDied;
+            EnemyAI bossAI = boss.GetComponent<EnemyAI>();
+            bossAI.aiState = EnemyAI.AIState.Wander;
+            bossAI.wanderAnchor = bossTempWanderAnchor;
+        }
     }
 
     public void SetCursorLock(bool b)

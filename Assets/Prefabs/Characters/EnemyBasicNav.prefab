@@ -197,7 +197,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75fc57c848c2e3f4c9c9ac660a56c4e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingState: 2
   pursuePlayerDistance: 5
+  wanderRadius: 100
   sightBlockingLayers:
     serializedVersion: 2
     m_Bits: 55
@@ -205,6 +207,8 @@ MonoBehaviour:
   weapon: {fileID: 7790589459019831872}
   agent: {fileID: -3390135047164175640}
   canAttack: 1
+  wanderAnchor: {x: 0, y: 0, z: 0}
+  aiState: 0
 --- !u!114 &7790589459019831872
 MonoBehaviour:
   m_ObjectHideFlags: 0
