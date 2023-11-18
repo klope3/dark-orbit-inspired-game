@@ -9,6 +9,7 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private Transform cameraFollowAxis;
     [SerializeField] private float sensitivity;
     [SerializeField] private Transform weaponPivot;
+    [SerializeField] private Transform weaponBasePivot;
     [SerializeField] private Transform weaponTarget;
     [SerializeField] private float maxDownwardAngle;
 
@@ -43,11 +44,16 @@ public class PlayerCamera : MonoBehaviour
     {
         weaponPivot.LookAt(weaponTarget, weaponTarget.up);
 
-        Vector3 angles = weaponPivot.localEulerAngles;
-        if (angles.x < 270 && angles.x > maxDownwardAngle)
+        Vector3 weaponAngles = weaponPivot.localEulerAngles;
+        Vector3 weaponBaseAngles = weaponPivot.localEulerAngles;
+        if (weaponAngles.x < 270 && weaponAngles.x > maxDownwardAngle)
         {
-            angles.x = maxDownwardAngle;
+            weaponAngles.x = maxDownwardAngle;
         }
-        weaponPivot.localEulerAngles = angles;
+        weaponPivot.localEulerAngles = weaponAngles;
+
+        weaponBaseAngles.x = 0;
+        weaponBaseAngles.z = 0;
+        weaponBasePivot.localEulerAngles = weaponBaseAngles;
     }
 }
