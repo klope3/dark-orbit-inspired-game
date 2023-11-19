@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 public class Weapon : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class Weapon : MonoBehaviour
     private float triggerTimer;
     private bool wasTriggerPulled; //last frame
     private bool isTriggerPulled; //this frame
+    public UnityEvent OnFire;
 
     public enum FireType
     {
@@ -88,6 +90,8 @@ public class Weapon : MonoBehaviour
         pooledProj.transform.position = muzzleLocation.position;
         Projectile proj = pooledProj.GetComponent<Projectile>();
         proj.Launch(muzzleLocation.forward);
+        proj.transform.forward = muzzleLocation.forward;
         triggerTimer = 0;
+        OnFire?.Invoke();
     }
 }

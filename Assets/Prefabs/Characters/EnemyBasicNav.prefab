@@ -33,6 +33,64 @@ Transform:
   - {fileID: 7884768428297044397}
   m_Father: {fileID: 1514978271697080597}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2369292682300917565
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2240690429576991548}
+  - component: {fileID: 6421638297871714675}
+  m_Layer: 3
+  m_Name: deathSound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2240690429576991548
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2369292682300917565}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1514978271697080597}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6421638297871714675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2369292682300917565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 179f964e96866384abf1fe024f79b268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransform: {fileID: 0}
+  source: {fileID: 0}
+  sourceTag: AudioOneShot
+  closeSounds:
+  - {fileID: 8300000, guid: 940452ad7475d3945b519d8866a736f8, type: 3}
+  midSounds:
+  - {fileID: 8300000, guid: 6c3721ca6b4c8e44c97ebe2c550376a6, type: 3}
+  distantSounds:
+  - {fileID: 8300000, guid: b28a09bce6649034388fb89abc8129ae, type: 3}
+  midDistanceCutoff: 100
+  distantDistanceCutoff: 300
+  playOneShot: 1
+  minPitch: 0.8
+  maxPitch: 1.2
 --- !u!1 &3032451087444342418
 GameObject:
   m_ObjectHideFlags: 0
@@ -50,6 +108,7 @@ GameObject:
   - component: {fileID: 5904968125460673562}
   - component: {fileID: -3390135047164175640}
   - component: {fileID: 3595693719816482988}
+  - component: {fileID: 582972295517540871}
   m_Layer: 3
   m_Name: EnemyBasicNav
   m_TagString: Untagged
@@ -72,6 +131,8 @@ Transform:
   m_Children:
   - {fileID: 4449435630228277836}
   - {fileID: 3518820983601119032}
+  - {fileID: 2240690429576991548}
+  - {fileID: 6628660236539579072}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &8358125909956210505
@@ -111,7 +172,7 @@ MonoBehaviour:
   maxHealth: 3
   invincible: 0
   destroyOnDeath: 0
-  inactiveOnDeath: 0
+  inactiveOnDeath: 1
   showLogs: 0
   OnDamage:
     m_PersistentCalls:
@@ -122,10 +183,22 @@ MonoBehaviour:
   OnDie:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3032451087444342418}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 582972295517540871}
+        m_TargetAssemblyTypeName: ParticleSystemPlayer, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6421638297871714675}
+        m_TargetAssemblyTypeName: SoundPlayer, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -177,6 +250,21 @@ MonoBehaviour:
   findPool: 1
   findPoolTag: ProjectilePool
   showAimLine: 1
+  OnFire:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1912689462646729084}
+        m_TargetAssemblyTypeName: SoundPlayer, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8550935793397262714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,6 +399,20 @@ MonoBehaviour:
   IsInCompassBarRadius: 0
   IsInIndicatorRadius: 0
   IsInMinimapRadius: 0
+--- !u!114 &582972295517540871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3032451087444342418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c756c3db5463046af45fd6413b6ba9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pool: {fileID: 0}
+  poolTag: ExplosionPool
 --- !u!1 &6506878215821663692
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,6 +527,63 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &8048864851037742358
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6628660236539579072}
+  - component: {fileID: 1912689462646729084}
+  m_Layer: 3
+  m_Name: shootSound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6628660236539579072
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8048864851037742358}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1514978271697080597}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1912689462646729084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8048864851037742358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 179f964e96866384abf1fe024f79b268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransform: {fileID: 0}
+  source: {fileID: 0}
+  sourceTag: AudioOneShot
+  closeSounds:
+  - {fileID: 8300000, guid: ce9b8dc8fa2c3e94d8ae382097b17045, type: 3}
+  midSounds:
+  - {fileID: 8300000, guid: e0a96aa787941984eb876f38101e53f5, type: 3}
+  distantSounds: []
+  midDistanceCutoff: 100
+  distantDistanceCutoff: 300
+  playOneShot: 1
+  minPitch: 0.8
+  maxPitch: 1.2
 --- !u!1001 &3990158998870513875
 PrefabInstance:
   m_ObjectHideFlags: 0
