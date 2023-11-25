@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Sirenix.OdinInspector;
 
 public class HealthHandler : MonoBehaviour
 {
@@ -12,9 +13,9 @@ public class HealthHandler : MonoBehaviour
     [SerializeField] private bool inactiveOnDeath;
     [SerializeField] private bool showLogs;
     private int curHealth;
-    public UnityEvent OnDamage;
-    public UnityEvent OnHeal;
-    public UnityEvent OnDie;
+    [FoldoutGroup("Events")] public UnityEvent OnDamage;
+    [FoldoutGroup("Events")] public UnityEvent OnHeal;
+    [FoldoutGroup("Events")] public UnityEvent OnDie;
     public event System.Action OnDied;
 
     public int CurHealth
@@ -25,6 +26,14 @@ public class HealthHandler : MonoBehaviour
         }
     }
 
+    public int MaxHealth
+    {
+        get
+        {
+            return maxHealth;
+        }
+    }
+
     private void Awake()
     {
         curHealth = startingHealth;
@@ -32,13 +41,11 @@ public class HealthHandler : MonoBehaviour
 
     public void AddHealth(int amount)
     {
-        Debug.Log("Damage " + amount);
         if (amount == 0 || (amount < 0 && invincible))
             return;
 
         curHealth += amount;
         curHealth = Mathf.Clamp(curHealth, 0, maxHealth);
-        Debug.Log("Health now " + curHealth);
         if (showLogs)
             Debug.Log($"Added {amount} to {gameObject.name}'s health");
 
