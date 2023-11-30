@@ -10,7 +10,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool allowLockCursor = true;
     [SerializeField] private bool spawnBoss;
     [SerializeField] private Vector3 bossTempWanderAnchor;
+    [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject playerMenu;
+    [SerializeField] private PlayerCamera playerCamera;
+    [SerializeField] private Weapon playerWeapon;
     public UnityEvent OnBossKilled;
+
+    public bool IsPauseMenuOpen { get; private set; }
+    public bool IsPlayerMenuOpen { get; private set; }
 
     private void Awake()
     {
@@ -48,5 +55,30 @@ public class GameManager : MonoBehaviour
             Cursor.lockState = b ? CursorLockMode.Locked : CursorLockMode.None;
             Cursor.visible = !b;
         }
+    }
+
+    public void UpdateGameState()
+    {
+        SetTimeFrozen(IsPauseMenuOpen);
+        SetCursorLock(!IsPauseMenuOpen && !IsPlayerMenuOpen);
+        playerCamera.enabled = !IsPauseMenuOpen && !IsPlayerMenuOpen;
+        playerWeapon.enabled = !IsPauseMenuOpen && !IsPlayerMenuOpen;
+        AudioListener.pause = !IsPauseMenuOpen; //later, will want to still allow menu sounds to play
+    }
+
+    public void TogglePauseMenu()
+    {
+        IsPauseMenuOpen = !IsPauseMenuOpen;
+        pauseMenu.SetActive(IsPauseMenuOpen);
+        UpdateGameState();
+    }
+
+    public void TogglePlayerMenu()
+    {
+        if (IsPauseMenuOpen) return;
+
+        IsPlayerMenuOpen = !IsPlayerMenuOpen;
+        playerMenu.SetActive(IsPlayerMenuOpen);
+        UpdateGameState();
     }
 }

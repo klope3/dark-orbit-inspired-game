@@ -15,6 +15,7 @@ public class GameInput : MonoBehaviour
     public UnityEvent OnAttackStart;
     public UnityEvent OnAttackStop;
     public UnityEvent OnPausePressed;
+    public UnityEvent OnPlayerMenuPressed;
 
     private void Update()
     {
@@ -22,6 +23,7 @@ public class GameInput : MonoBehaviour
         CheckMovement();
         CheckLook();
         CheckPause();
+        CheckPlayerMenu();
     }
 
     private void CheckAttack()
@@ -57,6 +59,14 @@ public class GameInput : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             OnPausePressed?.Invoke();
+        }
+    }
+
+    private void CheckPlayerMenu()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            OnPlayerMenuPressed?.Invoke();
         }
     }
 }

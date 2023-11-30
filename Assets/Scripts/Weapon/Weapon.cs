@@ -90,7 +90,6 @@ public class Weapon : MonoBehaviour
         if (ammoType == AmmoType.Recharge)
         {
             int amountToRecharge = Mathf.RoundToInt((float)rechargePerSecond * Time.deltaTime);
-            Debug.Log($"Recharge {amountToRecharge}");
             AddAmmo(amountToRecharge);
         }
         TryFire();
