@@ -54,7 +54,7 @@ public class SoundPlayer : MonoBehaviour
 
         if (listToUse == null || listToUse.Length == 0)
         {
-            Debug.LogWarning(gameObject.name + " tried to play a sound, but was unable to find one to play.");
+            Debug.LogWarning(gameObject.name + " tried to play a sound, but was unable to find a clip to play.");
             return;
         }
 

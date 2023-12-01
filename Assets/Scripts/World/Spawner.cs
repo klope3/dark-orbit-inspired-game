@@ -27,7 +27,6 @@ public class Spawner : MonoBehaviour
 
     private void Spawn()
     {
-        Debug.Log("Spawn");
         if (minSpawnRadius > maxSpawnRadius)
         {
             Debug.LogWarning("This spawner's min radius is greater than its max radius!");

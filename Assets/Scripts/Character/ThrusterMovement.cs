@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ThrusterMovement : MonoBehaviour
 {
-    //[SerializeField] private GameInput input;
     [SerializeField] private float baseForce;
     [SerializeField] private float accelerationForce;
     [SerializeField] private bool useSpeedLimit;
@@ -12,7 +11,6 @@ public class ThrusterMovement : MonoBehaviour
     [SerializeField] private bool useAutoBrake;
     [SerializeField] private float brakeForce;
     [SerializeField] private float stoppedTolerance;
-    //[SerializeField] private Transform referenceTransform;
     private Rigidbody rb;
 
     [HideInInspector] public Vector2 moveDirectionHorz;
@@ -24,8 +22,6 @@ public class ThrusterMovement : MonoBehaviour
         "in order to ascend.")] private float ascendForce;
     [SerializeField, Tooltip("How much do decrease the vertical force " +
         "in order to descend.")] private float descendForce;
-    //public Vector3 MoveDirection { get; private set; }
-    //public bool IsThrusting { get; private set; }
 
     private void Awake()
     {
@@ -34,8 +30,6 @@ public class ThrusterMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Vector2 inputAxis = input.MovementAxis;
-
         if (useAutoBrake)
             AutoBrake();
         MoveHorizontal();
@@ -45,9 +39,6 @@ public class ThrusterMovement : MonoBehaviour
     private void MoveHorizontal()
     {
         Vector3 direction = new Vector3(moveDirectionHorz.x, 0, moveDirectionHorz.y).normalized;
-        //Vector3 moveDirection = referenceTransform.right * input.MovementAxis.x + referenceTransform.forward * input.MovementAxis.y;
-        //moveDirection.Normalize();
-        //MoveDirection = moveDirection;
         if (useSpeedLimit)
         {
             Vector3 oppositeDirection = -1 * rb.velocity.normalized;
@@ -56,8 +47,6 @@ public class ThrusterMovement : MonoBehaviour
         }
 
         rb.AddForce(direction * accelerationForce * baseForce * Time.deltaTime);
-
-        //IsThrusting = moveDirection.magnitude > 0;
     }
 
     private void MoveVertical()

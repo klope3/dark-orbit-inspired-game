@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 using Pathfinding;
 
 public class EnemyAI : MonoBehaviour
@@ -13,7 +12,6 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private Transform weaponPivot;
     [SerializeField] private Weapon weapon;
     [SerializeField] private AIPath aiPath;
-    //[SerializeField] private NavMeshAgent agent;
     public bool canAttack = true;
     private Transform playerTransform;
     private const float behaviorChangeMinTime = 0.5f;
@@ -69,22 +67,15 @@ public class EnemyAI : MonoBehaviour
     private void ChooseNavigationTarget()
     {
         if (!canSeePlayer) return;
-        //if (!agent.isOnNavMesh)
-        //{
-        //    Debug.LogWarning("Did not set destination because the agent isn't on a navmesh");
-        //    return;
-        //}
 
         pursuePlayerOffset = Random.insideUnitCircle.normalized * pursuePlayerDistance;
         if (aiState == AIState.AttackPlayer)
         {
-            //agent.destination = playerTransform.position + pursuePlayerOffset;
             aiPath.destination = playerTransform.position + pursuePlayerOffset;
         }
         else if (aiState == AIState.Wander)
         {
             Vector2 randPoint = Random.insideUnitCircle;
-            //agent.destination = wanderAnchor + new Vector3(randPoint.x, 0, randPoint.y) * wanderRadius;
             aiPath.destination = wanderAnchor + new Vector3(randPoint.x, 0, randPoint.y) * wanderRadius;
         }
     }
