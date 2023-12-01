@@ -10,7 +10,7 @@ public class Weapon : MonoBehaviour
     [SerializeField, Min(0.001f)] private float shotsPerSecond;
     [SerializeField] private FireType fireType;
     [SerializeField] private AmmoType ammoType;
-    [SerializeField, ShowIf("ammoType", AmmoType.Recharge), Min(1)] private int rechargePerSecond;
+    [SerializeField, ShowIf("ammoType", AmmoType.Recharge), Min(1)] private float rechargePerSecond;
     [SerializeField] private Transform muzzleLocation;
     [SerializeField] private GameObjectPool projectilePool;
     [SerializeField, Tooltip("Whether to try and find a pool on Awake. " +
@@ -19,17 +19,17 @@ public class Weapon : MonoBehaviour
     [SerializeField, Tooltip("The tag to use for finding a pool on Awake. " +
         "Does nothing if findPool is false.")] private string findPoolTag;
     [SerializeField] private bool showAimLine;
-    [SerializeField, Min(1)] private int maxAmmo;
-    [SerializeField, Min(1)] private int startingAmmo;
-    [SerializeField, Min(0)] private int ammoPerShot;
-    [ShowInInspector, ReadOnly] private int currentAmmo;
+    [SerializeField, Min(1)] private float maxAmmo;
+    [SerializeField, Min(1)] private float startingAmmo;
+    [SerializeField, Min(0)] private float ammoPerShot;
+    [ShowInInspector, ReadOnly] private float currentAmmo;
     private float triggerTimer;
     private bool wasTriggerPulled; //last frame
     private bool isTriggerPulled; //this frame
     public UnityEvent OnFire;
     public UnityEvent OnAmmoChange;
 
-    public int CurAmmo
+    public float CurAmmo
     {
         get
         {
@@ -37,7 +37,7 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    public int MaxAmmo
+    public float MaxAmmo
     {
         get
         {
@@ -89,7 +89,7 @@ public class Weapon : MonoBehaviour
     {
         if (ammoType == AmmoType.Recharge)
         {
-            int amountToRecharge = Mathf.RoundToInt((float)rechargePerSecond * Time.deltaTime);
+            float amountToRecharge = rechargePerSecond * Time.deltaTime;
             AddAmmo(amountToRecharge);
         }
         TryFire();
@@ -149,9 +149,9 @@ public class Weapon : MonoBehaviour
         OnFire?.Invoke();
     }
 
-    public void AddAmmo(int amount)
+    public void AddAmmo(float amount)
     {
-        int prevAmmo = currentAmmo;
+        float prevAmmo = currentAmmo;
         currentAmmo = Mathf.Clamp(currentAmmo + amount, 0, maxAmmo);
         
         if (prevAmmo != currentAmmo) OnAmmoChange?.Invoke();
